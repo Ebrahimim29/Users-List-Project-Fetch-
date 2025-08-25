@@ -9,16 +9,24 @@
 <body>
 
     <h2>لیست کاربران</h2>
-    <br>
+
+    <!-- فرم اضافه کردن کاربر -->
+     <input type="text" id="name" placeholder="نام">
+     <input type="text" id="email" placeholder="ایمیل"><br>
+     <button onclick="addUser()">افزودن کاربر</button>
+
+    <br><br>
     <button onclick="loadUsers()">نمایش اطلاعات</button>
 
     <table id="table" dir="rtl">
         <thead>
             <tr>
+                <th>شماره</th>
                 <th>نام</th>
                 <th>تلفن</th>
                 <th>ایمیل</th>
                 <th>آدرس</th>
+                <th>عملیات</th>
             </tr>
         </thead>
         <tbody id="tbody"></tbody>
