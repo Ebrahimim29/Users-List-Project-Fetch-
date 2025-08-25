@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2{
+    margin-left: 580px;
+}
+
+button{
+    padding: 1rem;
+    background-color: yellowgreen;
+    color: white;
+    cursor: pointer;
+    transition: all 500ms;
+    font-family: inherit;
+    font-weight: bolder;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.491);
+    margin-left: 600px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+button:hover{
+    background: aqua;
+}
+thead{
+    background-color: magenta;
+    color: white;
+    font-size: x-large;
+}
+table{
+    opacity: 0;
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 0 10px #ccc;
+    transition: all 1s;
+}
+th , td{
+    padding: 10px;
+    border: 1px solid #ddd;
+}
