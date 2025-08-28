@@ -1,13 +1,14 @@
+const tbody = document.getElementById("tbody");
 function loadUsers() {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(res => res.json())
     .then(data =>{
+
         document.getElementById("table").style.opacity = "1";
-        const tbody = document.getElementById("tbody");
         tbody.innerHTML = "";
 
-        data.forEach(user =>{
-            tbody.innerHTML += `<tr>
+        data.forEach(user => {
+        tbody.innerHTML += `<tr id="user-${user.id}">
             <td>${user.id}</td>
             <td>${user.name}</td>
             <td>${user.phone}</td>
@@ -16,9 +17,10 @@ function loadUsers() {
 
             <td>
             <button onclick ="deleteUser(${user.id})">حذف</button>
-            <button>ویرایش</button>
+            <button onclick = "editUser(${user.id},'${user.name}','${user.email}')>ویرایش</button>            
             </td>            
-            </tr>`;
+          </tr>`;
+            // چون مقادیر نام و ایمیل در دکمه ویرایش به صورت استرینگ قراره ارسال بشه باید داخل کوتیشن قرار بگیرد
             console.log(user);            
         });
     });
@@ -53,9 +55,10 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
     
     <td>
     <button onclick = "deleteUser(${user.id})">حذف</button>
-    <button>ویرایش</button>
+    <button onclick = "editUser(${user.id} ,'${user.name}','${user.phone}' ,'${user.email}')>ویرایش</button>
+    
     </td>
-
+    
     </tr>`;
 });
 }
@@ -71,3 +74,34 @@ function deleteUser(id) {
         loadUsers(); //بازخوانی لیست
     });
 }
+
+// ویرایش کاربر
+function editUser(id , oldName , oldEmail) {
+    const newName = prompt("نام جدید خود را وارد کنید:" , oldName);
+    // const newPhone = prompt("تلفن جدید را وارد کنید:" , oldPhone);
+    const newEmail = prompt("ایمیل جدید را وارد کنید:" , oldEmail);
+
+    if (!newName || !newEmail) {
+        alert("ورودی نامعتبر است😨");
+        return;
+    }
+
+    fetch('https://jsonplaceholder.typicode.com/users/${id}', {
+      method: 'PATCH',
+      body: JSON.stringify({ name : newName , email : newEmail }), //name , email
+      headers: {'Content-type': 'application/json; charset=UTF-8'}
+    })
+    .then(res => res.json())
+    .then(updated =>{
+
+        console.log(updated);
+        
+        alert("ویرایش انجام شد(به صورت نمایشی)😎");
+    })
+
+    // اعمال تغییرات به صورت نمایشی
+    const row = document.getElementById('user-${id}');
+    row.children[1].textContent = updated.name;
+    row.children[3].textContent = updated.email;
+}
+loadUsers()
